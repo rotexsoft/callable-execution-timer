@@ -26,3 +26,5 @@ vendor/
 
 composer.lock
 phpunit.xml
+
+tester.php
