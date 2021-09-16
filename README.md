@@ -259,7 +259,8 @@ CallableExecutionTimer::callFunc(
     'funcWithRefArg', $func, [&$num]
 ); // returns '$arg = 0' & $num will have a value of 0 after this call
 
-// Option 2 using the __invoke(array $args) mechanism on the instance of CallableExecutionTimer the callable is bound to
+// Option 2 using the __invoke(array $args) mechanism on the instance of 
+// CallableExecutionTimer the callable is bound to
 $num = -1;
 $callableObj2 = new CallableExecutionTimer('funcWithRefArg', $func);
 $callableObj2([&$num]); // triggers the __invoke(array $args) mechanism
