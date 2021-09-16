@@ -44,9 +44,9 @@ Let's call php's built-in [strtolower](https://www.php.net/manual/en/function.st
 <?php
 use \FunctionExecutionTimer\CallableExecutionTimer;
 
-CallableExecutionTimer::callFunc('strtolower', 'strtolower', ['BOO']); // returns 'boo'
+echo CallableExecutionTimer::callFunc('strtolower', 'strtolower', ['BOO']) . PHP_EOL; // outputs 'boo'
 
-CallableExecutionTimer::callFunc('strtoupper', 'strtoupper', ['boo']) // returns 'BOO'
+echo CallableExecutionTimer::callFunc('strtoupper', 'strtoupper', ['boo']) . PHP_EOL; // outputs 'BOO'
 ```
 
 > NOTE: The first argument passed to **CallableExecutionTimer::callFunc(...)** is a name (conforming to PHP's method naming convention) you want to name the callable you are about to execute. This name will be used to label the information related to the execution of the callable as will be shown later on in this documentation.
@@ -72,10 +72,10 @@ function mega(&$a){
     return "function mega \$a=$a";
 }
 
-CallableExecutionTimer::callFunc('foobar', 'foobar', ["one", "two"]); // returns 'foobar got one and two'
+echo CallableExecutionTimer::callFunc('foobar', 'foobar', ["one", "two"]) . PHP_EOL ; // outputs 'foobar got one and two'
 
 $bar = 77;
-CallableExecutionTimer::callFunc('mega', 'mega', [&$bar]); // returns 'function mega $a=55'
+echo CallableExecutionTimer::callFunc('mega', 'mega', [&$bar]) . PHP_EOL ; // outputs 'function mega $a=55'
 
 // $bar now has a value of 55 after the execution of the function above
 ```
@@ -101,22 +101,22 @@ class myclass {
 }
 
 // execute an instance method
-CallableExecutionTimer::callFunc(
+echo CallableExecutionTimer::callFunc(
     'fooBar', [new foo(), "bar"], ["three", "four"]
-); // returns 'foo::bar got three and four'
+) . PHP_EOL ; // outputs 'foo::bar got three and four'
 
 
 // execute a static method
 $classname = "myclass";
-CallableExecutionTimer::callFunc(
+echo CallableExecutionTimer::callFunc(
     'myclassSay_hello', [$classname, "say_hello"]
-); // returns 'Hello!'
+) . PHP_EOL; // outputs 'Hello!'
 
 // OR
 
-CallableExecutionTimer::callFunc(
+echo CallableExecutionTimer::callFunc(
     'myclassSay_hello', $classname ."::say_hello"
-); // also returns 'Hello!'
+) . PHP_EOL; // also outputs 'Hello!'
 
 ```
 
@@ -141,13 +141,13 @@ class B extends A {
 }
 
 // Child calling parent's implementation of method defined in both parent & child
-CallableExecutionTimer::callFunc('B_A_who', [B::class, 'parent::who']); // returns 'A'
+echo CallableExecutionTimer::callFunc('B_A_who', [B::class, 'parent::who']) . PHP_EOL; // outputs 'A'
 
 // Parent calling its own method
-CallableExecutionTimer::callFunc('A_who', [A::class, 'who']);  // returns 'A'
+echo CallableExecutionTimer::callFunc('A_who', [A::class, 'who']) . PHP_EOL;  // outputs 'A'
 
 // Child calling its own method
-CallableExecutionTimer::callFunc('B_who', [B::class, 'who']); // returns 'B'
+echo CallableExecutionTimer::callFunc('B_who', [B::class, 'who']) . PHP_EOL; // outputs 'B'
 ```
 
 ### Executing namespaced static class methods
@@ -168,14 +168,14 @@ namespace {
     use \FunctionExecutionTimer\CallableExecutionTimer;
 
     // Syntax 1
-    CallableExecutionTimer::callFunc(
+    echo CallableExecutionTimer::callFunc(
         'FoobarFooTest', "\\Foobar\\Foo::test", ["Hannes"]
-    ); // returns 'Hello Hannes!'
+    ) . PHP_EOL; // outputs 'Hello Hannes!'
 
     // Syntax 2
-    CallableExecutionTimer::callFunc(
+    echo CallableExecutionTimer::callFunc(
         'FoobarFooTest', ["\\Foobar\\Foo", 'test'], ["Philip"]
-    ); // returns 'Hello Philip!'
+    ) . PHP_EOL; // outputs 'Hello Philip!'
 }
 ```
 
@@ -189,13 +189,13 @@ $func = function($arg1, $arg2) {
     return $arg1 * $arg2;
 };
 
-CallableExecutionTimer::callFunc('func', $func, [2, 4]); // returns 8
+CallableExecutionTimer::callFunc('func', $func, [2, 4]) . PHP_EOL; // outputs 8
 
 CallableExecutionTimer::callFunc(
     'funcInline', 
     function($arg) { return $arg; }, 
     ['in inline lambda function!']
-); // returns 'in inline lambda function!'
+) . PHP_EOL; // outputs 'in inline lambda function!'
 
 // anonymous function that accepts a by-ref argument
 $num = 5;
@@ -203,7 +203,7 @@ CallableExecutionTimer::callFunc(
     'funcInlineByRef', 
     function(int &$arg) { return "\$arg = " . ++$arg; }, 
     [&$num]
-); // returns '$arg = 6' 
+) . PHP_EOL; // outputs '$arg = 6' 
 
 // $num now has a value of 6 at this point
 ```
@@ -221,7 +221,7 @@ class C {
     }
 }
 
-CallableExecutionTimer::callFunc('C__invoke', new C(), ['Jane!']); // returns 'Hello Jane!'
+CallableExecutionTimer::callFunc('C__invoke', new C(), ['Jane!']) . PHP_EOL; // outputs 'Hello Jane!'
 ```
 
 You can also use instances of **\FunctionExecutionTimer\CallableExecutionTimer** to execute callables like below:
@@ -230,13 +230,13 @@ You can also use instances of **\FunctionExecutionTimer\CallableExecutionTimer**
 <?php
 use \FunctionExecutionTimer\CallableExecutionTimer;
 
-$callableObj1 = new CallableExecutionTimer('strtolowerCallback', 'strtolower');
+$callableObj1 = new CallableExecutionTimer('strtolowerCallback', 'strtolower') . PHP_EOL;
 
-$callableObj1->strtolowerCallback('BOO'); // triggers __call & returns 'boo'
-                                          // same as $callableObj1->__call('strtolowerCallback', ['BOO'])
+$callableObj1->strtolowerCallback('BOO') . PHP_EOL; // triggers __call & outputs 'boo'
+                                                    // same as $callableObj1->__call('strtolowerCallback', ['BOO'])
 
-$callableObj1(['BOO']); // triggers __invoke & returns 'boo'
-                        // same as $callableObj1->__invoke(['BOO'])
+$callableObj1(['BOO']) . PHP_EOL; // triggers __invoke & outputs 'boo'
+                                  // same as $callableObj1->__invoke(['BOO'])
 
 ```
 
@@ -259,16 +259,16 @@ $func = function(int &$arg) {
 $num = -1;
 CallableExecutionTimer::callFunc(
     'funcWithRefArg', $func, [&$num]
-); // returns '$arg = 0' & $num will have a value of 0 after this call
+) . PHP_EOL; // outputs '$arg = 0' & $num will have a value of 0 after this call
 
 // Option 2 using the __invoke(array $args) mechanism on the instance of 
 // CallableExecutionTimer the callable is bound to
 $num = -1;
 $callableObj2 = new CallableExecutionTimer('funcWithRefArg', $func);
-$callableObj2([&$num]); // triggers the __invoke(array $args) mechanism
-                        // which executes the lambda function and 
-                        // returns '$arg = 0'.
-                        // $num will have a value of 0 after this call
+$callableObj2([&$num]) . PHP_EOL;   // triggers the __invoke(array $args) mechanism
+                                    // which executes the lambda function and 
+                                    // outputs '$arg = 0'.
+                                    // $num will have a value of 0 after this call
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -282,9 +282,9 @@ $callableObj2([&$num]); // triggers the __invoke(array $args) mechanism
 $num = -1;
 $callableObj2 = new CallableExecutionTimer('funcWithRefArg', $func);
 $numRef = &$num;
-$callableObj2->funcWithRefArg($numRef); // Will throw a PHP Warning.
-                                        // $numRef will not be passed by
-                                        // ref because of the way 
+$callableObj2->funcWithRefArg($numRef) . PHP_EOL;   // Will throw a PHP Warning.
+                                                    // $numRef will not be passed by
+                                                    // ref because of the way 
                                         // __call(string $methodName, array $args) 
                                         // works, meaning that $num will still 
                                         // have a value of -1 after the call.
@@ -314,7 +314,7 @@ There are two ways to retrieve information associated with each execution of cal
 
     $funcObj = new CallableExecutionTimer('strtolower', 'strtolower');
 
-    $funcObj->strtolower('BOO');
+    $funcObj->strtolower('BOO') . PHP_EOL;
     var_export($funcObj->getLatestBenchmark());
     ```
 
@@ -351,14 +351,14 @@ There are two ways to retrieve information associated with each execution of cal
 
     $funcObj = new CallableExecutionTimer('strtolowerMethod', 'strtolower');
     
-    $funcObj->strtolowerMethod('BOO');
-    $funcObj->strtolowerMethod('ABA');
+    $funcObj->strtolowerMethod('BOO') . PHP_EOL;
+    $funcObj->strtolowerMethod('ABA') . PHP_EOL;
 
     CallableExecutionTimer::callFunc(
         'funcInline', 
         function($arg) { return "Hello $arg !"; }, 
         ['Jane']
-    );
+    ) . PHP_EOL;
 
     var_export(CallableExecutionTimer::getBenchmarks());
     ```
