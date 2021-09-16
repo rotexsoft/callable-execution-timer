@@ -112,7 +112,7 @@ class ObjectifiedCallable {
         
         if( $this->methodName === $methodName ) {
 
-            return $this($args); // Trigger $this->__invoke($args)
+            return $this->__invoke($args);
             
         } else {
             throw new \InvalidArgumentException(
