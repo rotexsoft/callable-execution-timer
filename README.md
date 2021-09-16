@@ -51,7 +51,7 @@ CallableExecutionTimer::callFunc('strtoupper', 'strtoupper', ['boo']) // returns
 
 > NOTE: The second argument passed to **CallableExecutionTimer::callFunc(...)** is the callable you are trying to execute.
 
-> NOTE: The third argument passed to **CallableExecutionTimer::callFunc(...)** is an array containing all the arguments to be passed to the callable you are trying to execute.
+> NOTE: The third argument passed to **CallableExecutionTimer::callFunc(...)** is an array containing all the arguments to be passed to the callable you are trying to execute. You can omit this argument if the callable to be executed does not accept any arguments.
 
 
 ### Executing user defined functions
@@ -99,16 +99,22 @@ class myclass {
 }
 
 // execute an instance method
-CallableExecutionTimer::callFunc('fooBar', [new foo(), "bar"], ["three", "four"]); // returns 'foo::bar got three and four'
+CallableExecutionTimer::callFunc(
+    'fooBar', [new foo(), "bar"], ["three", "four"]
+); // returns 'foo::bar got three and four'
 
 
 // execute a static method
 $classname = "myclass";
-CallableExecutionTimer::callFunc('myclassSay_hello', [$classname, "say_hello"]); // returns 'Hello!'
+CallableExecutionTimer::callFunc(
+    'myclassSay_hello', [$classname, "say_hello"]
+); // returns 'Hello!'
 
 // OR
 
-CallableExecutionTimer::callFunc('myclassSay_hello', $classname ."::say_hello"); // also returns 'Hello!'
+CallableExecutionTimer::callFunc(
+    'myclassSay_hello', $classname ."::say_hello"
+); // also returns 'Hello!'
 
 ```
 
@@ -160,11 +166,14 @@ namespace {
     use \FunctionExecutionTimer\CallableExecutionTimer;
 
     // Syntax 1
-    CallableExecutionTimer::callFunc('FoobarFooTest', "\\Foobar\\Foo::test", ["Hannes"]); // returns 'Hello Hannes!'
+    CallableExecutionTimer::callFunc(
+        'FoobarFooTest', "\\Foobar\\Foo::test", ["Hannes"]
+    ); // returns 'Hello Hannes!'
 
     // Syntax 2
-    CallableExecutionTimer::callFunc('FoobarFooTest', ["\\Foobar\\Foo", 'test'], ["Philip"]); // returns 'Hello Philip!'
-
+    CallableExecutionTimer::callFunc(
+        'FoobarFooTest', ["\\Foobar\\Foo", 'test'], ["Philip"]
+    ); // returns 'Hello Philip!'
 }
 ```
 
@@ -229,9 +238,9 @@ $callableObj1(['BOO']); // triggers __invoke & returns 'boo'
 
 ```
 
-> **WARNING:** Executing a callable that has one or more parameters that should be passed by reference should be done using **\FunctionExecutionTimer\CallableExecutionTimer::callFunc(...)** or executing the function by using the **__invoke(array $args)** mechanism on the instance of **\FunctionExecutionTimer\CallableExecutionTimer** the function / method is bound to.
+> **WARNING:** Executing a callable that has one or more parameters that should be passed by reference should be done using **\FunctionExecutionTimer\CallableExecutionTimer::callFunc(...)** or executing the function by using the **__invoke(array $args)** mechanism on the instance of **\FunctionExecutionTimer\CallableExecutionTimer** the callable is bound to.
 
-> It won't work by trying to invoke the function on an instance of  **\FunctionExecutionTimer\CallableExecutionTimer**
+> It won't work by trying to invoke the callable on an instance of  **\FunctionExecutionTimer\CallableExecutionTimer**
 using the method call syntax that triggers **__call()** under the hood.
 
 For example, you can execute the lambda function below that accepts an argument by reference via the following two ways:
@@ -273,8 +282,8 @@ $numRef = &$num;
 $callableObj2->funcWithRefArg($numRef); // Will throw a PHP Warning.
                                         // $numRef will not be passed by
                                         // ref because of the way 
-                                        // __call(string $methodName, array $args) works, meaning that $num
-                                        // will still have a value of -1
-                                        // after the call.
+                                        // __call(string $methodName, array $args) 
+                                        // works, meaning that $num will still 
+                                        // have a value of -1 after the call.
 
 ```
