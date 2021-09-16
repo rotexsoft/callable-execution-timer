@@ -231,7 +231,7 @@ You can also use instances of **\FunctionExecutionTimer\CallableExecutionTimer**
 <?php
 use \FunctionExecutionTimer\CallableExecutionTimer;
 
-$callableObj1 = new CallableExecutionTimer('strtolowerCallback', 'strtolower') . PHP_EOL;
+$callableObj1 = new CallableExecutionTimer('strtolowerCallback', 'strtolower');
 
 echo $callableObj1->strtolowerCallback('BOO') . PHP_EOL; // triggers __call & outputs 'boo'
                                                          // same as $callableObj1->__call('strtolowerCallback', ['BOO'])
