@@ -130,6 +130,12 @@ class ObjectifiedCallable {
      */
     public function __invoke(array $args) {
         
+        // need to always keep this method very simple 
+        // because we don't want to add any overhead 
+        // computations for CallableExecutionTimer::__invoke
+        // which calls this method and measures time it takes
+        // for the callable in $this->method to be executed.
+        
         return \call_user_func_array($this->method, $args);
     }
     

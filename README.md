@@ -10,6 +10,8 @@ A simple PHP library for tracking the total amount of time a
 function / method) takes to execute (it can also return the result of executing 
 the callable, if desired).
 
+If you want to do some simple execution time profiling in your application, without using some full blown tool like debugbar or xdebug, then this is the package for you.
+
 
 ## Installation 
 
@@ -32,7 +34,7 @@ This library also provides information associated with each execution / invocati
 * the absolute path to the file in which the callable was called (string)
 * the exact line number in the file in which the callable was called (integer)
 
-## Basic usage: Executing callables
+## Executing callables
 
 ### Executing built-in php functions
 
@@ -288,3 +290,126 @@ $callableObj2->funcWithRefArg($numRef); // Will throw a PHP Warning.
                                         // have a value of -1 after the call.
 
 ```
+
+
+## Retrieving execution statistics
+
+There are two ways to retrieve information associated with each execution of callables performed via this library:
+
+1. You can call the **getLatestBenchmark()** method on an instance of **\FunctionExecutionTimer\CallableExecutionTimer** which you just used to execute a callable to get information about the most recent callable execution via that object. This method returns an array with the following keys (in bold, not including the colon):
+    * **function** : A string. The name (conforming to PHP's method naming convention) you labeled the callable you executed
+    * **args** : An array. Contains the arguments you passed to the callable you executed, if any, otherwise it would be an empty array.
+    * **start_time** : A float or an Integer. The timestamp in nanoseconds when the execution of the callable started.
+    * **end_time** : A float or an Integer. The timestamp in nanoseconds when the execution of the callable ended.
+    * **total_execution_time_in_seconds** : A float or an Integer. The total number of seconds it took to execute the callable.
+    * **return_value** : The value returned from the callable that was executed, if any, else NULL.
+    * **file_called_from** : A string. The absolute path to the file from which the callable was executed.
+    * **line_called_from** : An Integer. The exact line number in the file from which the callable was executed. 
+
+    Below is an example:
+
+    ```php
+    <?php
+    use \FunctionExecutionTimer\CallableExecutionTimer;
+
+    $funcObj = new CallableExecutionTimer('strtolower', 'strtolower');
+
+    $funcObj->strtolower('BOO');
+    var_export($funcObj->getLatestBenchmark());
+    ```
+
+    The code above will generate output like the one below:
+
+    ```
+    array (
+    'function' => 'strtolower',
+    'args' =>
+    array (
+        0 => 'BOO',
+    ),
+    'start_time' => 81023870126000,
+    'end_time' => 81023870134000,
+    'total_execution_time_in_seconds' => 8.0E-6,
+    'return_value' => 'boo',
+    'file_called_from' => 'C:\\Code\\function-execution-timer\\tester.php',
+    'line_called_from' => 105,
+    )
+    ```
+
+2. You can call **\FunctionExecutionTimer\CallableExecutionTimer::getBenchmarks()** to get information about the all callable executions performed via
+    * all calls to **\FunctionExecutionTimer\CallableExecutionTimer::callFunc(...)** 
+    * and all callable executions via various instances of **\FunctionExecutionTimer\CallableExecutionTimer**
+
+    This method returns an array of arrays. Each sub-array has the structure of the array returned by the **getLatestBenchmark()** method described above. Below is some sample code:
+
+    ```php
+    <?php
+    use \FunctionExecutionTimer\CallableExecutionTimer;
+
+    // First clear previous benchmark info if any
+    CallableExecutionTimer::clearBenchmarks(); 
+
+    $funcObj = new CallableExecutionTimer('strtolowerMethod', 'strtolower');
+    
+    $funcObj->strtolowerMethod('BOO');
+    $funcObj->strtolowerMethod('ABA');
+
+    CallableExecutionTimer::callFunc(
+        'funcInline', 
+        function($arg) { return "Hello $arg !"; }, 
+        ['Jane']
+    );
+
+    var_export(CallableExecutionTimer::getBenchmarks());
+    ```
+
+    The code above will generate output like the one below:
+
+    ```
+    array (
+    0 =>
+    array (
+        'function' => 'strtolowerMethod',
+        'args' =>
+        array (
+        0 => 'BOO',
+        ),
+        'start_time' => 87248086831300,
+        'end_time' => 87248086840600,
+        'total_execution_time_in_seconds' => 9.3E-6,
+        'return_value' => 'boo',
+        'file_called_from' => 'C:\\Code\\function-execution-timer\\tester.php',
+        'line_called_from' => 106,
+    ),
+    1 =>
+    array (
+        'function' => 'strtolowerMethod',
+        'args' =>
+        array (
+        0 => 'ABA',
+        ),
+        'start_time' => 87248086997700,
+        'end_time' => 87248087001600,
+        'total_execution_time_in_seconds' => 3.9E-6,
+        'return_value' => 'aba',
+        'file_called_from' => 'C:\\Code\\function-execution-timer\\tester.php',
+        'line_called_from' => 108,
+    ),
+    2 =>
+    array (
+        'function' => 'funcInline',
+        'args' =>
+        array (
+        0 => 'Jane',
+        ),
+        'start_time' => 87248087019400,
+        'end_time' => 87248087024100,
+        'total_execution_time_in_seconds' => 4.7E-6,
+        'return_value' => 'Hello Jane !',
+        'file_called_from' => 'C:\\Code\\function-execution-timer\\tester.php',
+        'line_called_from' => 110,
+    ),
+    )
+    ```
+
+IT IS RECOMMENDED THAT YOU CALL **\FunctionExecutionTimer\CallableExecutionTimer::clearBenchmarks()** BEFORE YOU START EXECUTING THE CALLABLES THAT YOU WANT TO GET EXECUTION INFORMATION FOR. THIS WILL CLEAR ALL PREVIOUS EXECUTION INFO FROM PRIOR CALLABLE EXECUTIONS.

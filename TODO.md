@@ -1,4 +1,4 @@
 # Things To Do
-* Write PHPUnit tests
-* Write documentation
-* Publish to packagist
+* ~~Write PHPUnit tests~~
+* ~~Write documentation~~
+* ~~Publish to packagist~~
