@@ -1,8 +1,8 @@
 {
-    "name": "rotexsoft/function-execution-timer",
-    "description": "A simple PHP library for tracking the total amount of time a function / method takes to execute and return result(s) (if any).",
+    "name": "rotexsoft/callable-execution-timer",
+    "description": "A simple PHP library for tracking the total amount of time a callable (e.g. function / method) takes to execute (it can also return the result of executing the callable, if desired).",
     "license": "BSD-3-Clause",
-    "keywords": [ "function", "functions", "method", "methods",  "profiler", "profiling", "benchmark", "benchmarks", "benchmarking", "execution", "time", "execution time"],
+    "keywords": [ "callable", "callables", "callback", "callbacks", "function", "functions", "method", "methods",  "profiler", "profiling", "benchmark", "benchmarks", "benchmarking", "execution", "time", "execution time", "performance", "measurement", "performance measurement"],
     "homepage": "https://github.com/rotexsoft/function-execution-timer",
     "authors": [
         {
@@ -16,13 +16,20 @@
     "require-dev": {
         "phpunit/phpunit": "^9.0",
         "php-coveralls/php-coveralls": "^2.0",
-        "rector/rector": "^0.8.56",
+        "rector/rector": "^0.11.0",
         "vimeo/psalm": "^4.3"
     },
     "autoload": {
-        "classmap": [ "src/", "tests/" ]
+        "classmap": [ "src/" ]
+    },
+    "autoload-dev": {
+        "classmap": ["src/", "tests/"],
+        "files": ["tests/objects/functions.php"]
     },
     "scripts": {
-        "test": "vendor/bin/phpunit --coverage-text"
+        "test": [
+            "composer dump", 
+            "vendor/bin/phpunit --coverage-text"
+        ]
     }
 }

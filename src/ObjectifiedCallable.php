@@ -3,45 +3,121 @@ declare(strict_types=1);
 
 namespace FunctionExecutionTimer;
 
+use InvalidArgumentException;
+
 /**
- * A class used to invoke a callable
+ * A class used to invoke a callable and return the result from the invocation.
  *
- * @author rotex
+ * @author Rotimi Ade
  */
 class ObjectifiedCallable {
 
     /**
-     * A callable to be executed by this class
+     * A callable that gets executed when an instance of this class's __call() or __invoke() methods are triggered
      * 
      * @var callable
      */
     protected $method;
     
     /**
-     * A name (conforming to PHP's method naming convention) you are labeling the callable to be executed by this class
+     * A name (conforming to PHP's method naming convention) you are labeling the callable to be executed by this class via which you can execute the callable using object method call syntax
      * 
      * @var string
      */
     protected $methodName = '';
+    
+    /**
+     * Returns the callable that gets executed when an instance of this class's __call() or __invoke() methods are triggered
+     * 
+     * @return callable
+     * 
+     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector
+     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector
+     * @noRector \Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector
+     */
+    public function getMethod(): callable {
+        
+        return $this->method;
+    }
 
     /**
+     * Returns the name (conforming to PHP's method naming convention) you have labeled the callable to be executed by this class via which you can execute the callable using object method call syntax
      * 
-     * @param string $method should match the name of the method assigned (i.e. to $this->methodName) when this object was created
-     * @param mixed $args arguments to pass to the function / method to be executed
+     * @return string
+     * 
+     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector
+     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector
+     * @noRector \Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector
+     */
+    public function getMethodName(): string {
+        
+        return $this->methodName;
+    }
+
+    /**
+     * Set the callable that gets executed when an instance of this class's __call() or __invoke() methods are triggered
+     * 
+     * @param callable $method The callable that gets executed when an instance of this class's __call() or __invoke() methods are triggered
+     * 
+     * @return self
+     * 
+     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector
+     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector
+     * @noRector \Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector
+     */
+    public function setMethod(callable $method): self {
+        
+        $this->method = \Closure::fromCallable( $method );
+        
+        return $this;
+    }
+
+    /**
+     * Set the name (conforming to PHP's method naming convention) you are labeling the callable to be executed by this class via which you can execute the callable using object method call syntax
+     * 
+     * @param string $methodName
+     * 
+     * @return self
+     * 
+     * @throws InvalidArgumentException
+     * 
+     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector
+     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector
+     * @noRector \Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector
+     */
+    public function setMethodName(string $methodName): self {
+        
+        if( !$this->isValidMethodName($methodName) ) {
+
+            // A valid php class' method name starts with a letter or underscore, 
+            // followed by any number of letters, numbers, or underscores.
+            throw new InvalidArgumentException("Error: bad method name `{$methodName}` supplied in " . __METHOD__ . '(...)');
+        }
+        
+        $this->methodName = $methodName;
+        
+        return $this;
+    }
+
+        /**
+     * 
+     * @param string $methodName should match the name of the method assigned (i.e. to $this->methodName) when this object was created
+     * @param array $args arguments to pass to the function / method to be executed
      * 
      * @return mixed result returned from executing function / method registered on an instance of this class
      * 
      * @throws \Exception if $method !== $this->methodName
      */
-    public function __call($method, $args) {
+    public function __call(string $methodName, array $args) {
         
-        if( $this->methodName === $method ) {
-            
-            return $this(...$args);
+        if( $this->methodName === $methodName ) {
+
+            return $this($args); // Trigger $this->__invoke($args)
             
         } else {
-            
-            throw new \InvalidArgumentException("Method `$method` not found.");
+            throw new \InvalidArgumentException(
+                "Error: Method `$methodName` not registered in this instance of `" . get_class($this) . '`'
+            );
         }
     }
     
@@ -52,10 +128,9 @@ class ObjectifiedCallable {
      * 
      * @return mixed result returned from executing function / method registered on an instance of this class
      */
-    public function __invoke(...$args) {
-
-        $meth = $this->method;
-        return $meth(...$args);
+    public function __invoke(array $args) {
+        
+        return \call_user_func_array($this->method, $args);
     }
     
     /**
@@ -64,9 +139,36 @@ class ObjectifiedCallable {
      * @param callable $method a callable that will be executed via this object
      */
     public function __construct (string $methodName, callable $method) {
+
+        if( !$this->isValidMethodName($methodName) ) {
+
+            // A valid php class' method name starts with a letter or underscore, 
+            // followed by any number of letters, numbers, or underscores.
+            throw new InvalidArgumentException("Error: bad method name `{$methodName}` supplied in " . __METHOD__ . '(...)');
+        }
         
-        $cl = \Closure::fromCallable( $method );
-        $this->method = $cl;
+        $this->method = \Closure::fromCallable( $method );
         $this->methodName = $methodName;
+    }
+    
+    /**
+     * Checks if the supplied string conforms to PHP's method naming convention 
+     * 
+     * A valid php class' method name starts with a letter or underscore, 
+     * followed by any number of letters, numbers, or underscores.
+     * 
+     * @param string $methodName name to be tested if is valid method name
+     * 
+     * @return bool
+     * 
+     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector
+     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector
+     * @noRector \Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector
+     */
+    protected function isValidMethodName(string $methodName): bool {
+        
+        $regexForValidMethodName = '/^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$/';
+        
+        return (bool) preg_match( $regexForValidMethodName, preg_quote($methodName, '/') );
     }
 }
