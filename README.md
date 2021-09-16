@@ -165,6 +165,7 @@ namespace Foobar {
 }
 
 namespace {
+    //include_once './vendor/autoload.php'; //include your composer autoloader
     use \FunctionExecutionTimer\CallableExecutionTimer;
 
     // Syntax 1
