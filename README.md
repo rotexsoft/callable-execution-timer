@@ -190,9 +190,9 @@ $func = function($arg1, $arg2) {
     return $arg1 * $arg2;
 };
 
-CallableExecutionTimer::callFunc('func', $func, [2, 4]) . PHP_EOL; // outputs 8
+echo CallableExecutionTimer::callFunc('func', $func, [2, 4]) . PHP_EOL; // outputs 8
 
-CallableExecutionTimer::callFunc(
+echo CallableExecutionTimer::callFunc(
     'funcInline', 
     function($arg) { return $arg; }, 
     ['in inline lambda function!']
@@ -200,7 +200,7 @@ CallableExecutionTimer::callFunc(
 
 // anonymous function that accepts a by-ref argument
 $num = 5;
-CallableExecutionTimer::callFunc(
+echo CallableExecutionTimer::callFunc(
     'funcInlineByRef', 
     function(int &$arg) { return "\$arg = " . ++$arg; }, 
     [&$num]
@@ -222,7 +222,7 @@ class C {
     }
 }
 
-CallableExecutionTimer::callFunc('C__invoke', new C(), ['Jane!']) . PHP_EOL; // outputs 'Hello Jane!'
+echo CallableExecutionTimer::callFunc('C__invoke', new C(), ['Jane!']) . PHP_EOL; // outputs 'Hello Jane!'
 ```
 
 You can also use instances of **\FunctionExecutionTimer\CallableExecutionTimer** to execute callables like below:
@@ -233,10 +233,10 @@ use \FunctionExecutionTimer\CallableExecutionTimer;
 
 $callableObj1 = new CallableExecutionTimer('strtolowerCallback', 'strtolower') . PHP_EOL;
 
-$callableObj1->strtolowerCallback('BOO') . PHP_EOL; // triggers __call & outputs 'boo'
+echo $callableObj1->strtolowerCallback('BOO') . PHP_EOL; // triggers __call & outputs 'boo'
                                                     // same as $callableObj1->__call('strtolowerCallback', ['BOO'])
 
-$callableObj1(['BOO']) . PHP_EOL; // triggers __invoke & outputs 'boo'
+echo $callableObj1(['BOO']) . PHP_EOL; // triggers __invoke & outputs 'boo'
                                   // same as $callableObj1->__invoke(['BOO'])
 
 ```
@@ -258,7 +258,7 @@ $func = function(int &$arg) {
 
 // Option 1 use CallableExecutionTimer::callFunc(...)
 $num = -1;
-CallableExecutionTimer::callFunc(
+echo CallableExecutionTimer::callFunc(
     'funcWithRefArg', $func, [&$num]
 ) . PHP_EOL; // outputs '$arg = 0' & $num will have a value of 0 after this call
 
@@ -266,10 +266,10 @@ CallableExecutionTimer::callFunc(
 // CallableExecutionTimer the callable is bound to
 $num = -1;
 $callableObj2 = new CallableExecutionTimer('funcWithRefArg', $func);
-$callableObj2([&$num]) . PHP_EOL;   // triggers the __invoke(array $args) mechanism
-                                    // which executes the lambda function and 
-                                    // outputs '$arg = 0'.
-                                    // $num will have a value of 0 after this call
+echo $callableObj2([&$num]) . PHP_EOL;  // triggers the __invoke(array $args) mechanism
+                                        // which executes the lambda function and 
+                                        // outputs '$arg = 0'.
+                                        // $num will have a value of 0 after this call
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -283,12 +283,12 @@ $callableObj2([&$num]) . PHP_EOL;   // triggers the __invoke(array $args) mechan
 $num = -1;
 $callableObj2 = new CallableExecutionTimer('funcWithRefArg', $func);
 $numRef = &$num;
-$callableObj2->funcWithRefArg($numRef) . PHP_EOL;   // Will throw a PHP Warning.
-                                                    // $numRef will not be passed by
-                                                    // ref because of the way 
-                                        // __call(string $methodName, array $args) 
-                                        // works, meaning that $num will still 
-                                        // have a value of -1 after the call.
+echo $callableObj2->funcWithRefArg($numRef) . PHP_EOL;  // Will throw a PHP Warning.
+                                                        // $numRef will not be passed by
+                                                        // ref because of the way 
+                                                        // __call(string $methodName, array $args) 
+                                                        // works, meaning that $num will still 
+                                                        // have a value of -1 after the call.
 
 ```
 
@@ -315,7 +315,7 @@ There are two ways to retrieve information associated with each execution of cal
 
     $funcObj = new CallableExecutionTimer('strtolower', 'strtolower');
 
-    $funcObj->strtolower('BOO') . PHP_EOL;
+    echo $funcObj->strtolower('BOO') . PHP_EOL;
     var_export($funcObj->getLatestBenchmark());
     ```
 
@@ -352,10 +352,10 @@ There are two ways to retrieve information associated with each execution of cal
 
     $funcObj = new CallableExecutionTimer('strtolowerMethod', 'strtolower');
     
-    $funcObj->strtolowerMethod('BOO') . PHP_EOL;
-    $funcObj->strtolowerMethod('ABA') . PHP_EOL;
+    echo $funcObj->strtolowerMethod('BOO') . PHP_EOL;
+    echo $funcObj->strtolowerMethod('ABA') . PHP_EOL;
 
-    CallableExecutionTimer::callFunc(
+    echo CallableExecutionTimer::callFunc(
         'funcInline', 
         function($arg) { return "Hello $arg !"; }, 
         ['Jane']
