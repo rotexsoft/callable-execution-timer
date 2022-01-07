@@ -15,7 +15,7 @@ If you want to do some simple execution time profiling in your application, with
 
 ## Installation 
 
-**Via composer:** (Requires PHP 7.3+ or PHP 8.0+). 
+**Via composer:** (Requires PHP 7.4+ or PHP 8.0+). 
 
     composer require rotexsoft/callable-execution-timer
 
