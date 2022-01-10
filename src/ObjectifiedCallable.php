@@ -24,7 +24,7 @@ class ObjectifiedCallable {
      * 
      * @var string
      */
-    protected $methodName = '';
+    protected string $methodName = '';
     
     /**
      * Returns the callable that gets executed when an instance of this class's __call() or __invoke() methods are triggered

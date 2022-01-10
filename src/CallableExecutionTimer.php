@@ -11,7 +11,7 @@ namespace FunctionExecutionTimer;
  */
 class CallableExecutionTimer extends ObjectifiedCallable {
 
-    public const NANO_SECOND_TO_SECOND_DIVISOR = 1000000000;
+    public const NANO_SECOND_TO_SECOND_DIVISOR = 1_000_000_000;
 
     /**
      * Holds execution stats for all function / method calls across all instances of this class

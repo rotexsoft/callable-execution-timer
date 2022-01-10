@@ -16,8 +16,8 @@
     "require-dev": {
         "phpunit/phpunit": "^9.0",
         "php-coveralls/php-coveralls": "^2.0",
-        "rector/rector": "^0.11.0",
-        "vimeo/psalm": "^4.3"
+        "rector/rector": "^0.12.0",
+        "vimeo/psalm": "^4.7"
     },
     "autoload": {
         "classmap": [ "src/" ]
@@ -30,6 +30,9 @@
         "test": [
             "composer dump", 
             "vendor/bin/phpunit --coverage-text"
-        ]
+        ],
+        "rector": "vendor/bin/rector process src --dry-run -vvv",
+        "psalm": "vendor/bin/psalm",
+        "qa": "composer test && composer rector && composer psalm"
     }
 }
