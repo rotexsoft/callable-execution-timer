@@ -6,7 +6,9 @@ namespace FunctionExecutionTimer;
 /**
  * 
  * A class that can be used to call any function or method while tracking the execution time of each call
- *
+ * 
+ * 
+ * 
  * @author Rotimi Ade
  */
 class CallableExecutionTimer extends ObjectifiedCallable {
@@ -71,6 +73,14 @@ class CallableExecutionTimer extends ObjectifiedCallable {
         return $this->calleeBacktraceData;
     }
     
+    /**
+     * 
+     * @param string $method name of method being invoked
+     * @param array<mixed> $args
+     * @return mixed
+     * 
+     * @throws \Exception from ObjectifiedCallable::__call
+     */
     public function __call(string $method, array $args) {
         
         if($this->calleeBacktraceData === []) {
@@ -94,7 +104,7 @@ class CallableExecutionTimer extends ObjectifiedCallable {
     /**
      * Executes function / method registered on an instance of this class
      * 
-     * @param mixed $args arguments to pass to the function / method to be executed
+     * @param array<mixed> $args arguments to pass to the function / method to be executed
      * 
      * @return mixed result returned from executing function / method registered on an instance of this class
      */
@@ -132,7 +142,7 @@ class CallableExecutionTimer extends ObjectifiedCallable {
             'args' => $argsCopy,
             'start_time' => $startTime,
             'end_time' => $endTime,
-            'total_execution_time_in_seconds' => (($endTime - $startTime) / static::NANO_SECOND_TO_SECOND_DIVISOR),
+            'total_execution_time_in_seconds' => (($endTime - $startTime) / self::NANO_SECOND_TO_SECOND_DIVISOR),
             'return_value' => $result,
             'file_called_from' => Utils::arrayGet($this->calleeBacktraceData, 'file', 'Unknown'),
             'line_called_from' => Utils::arrayGet($this->calleeBacktraceData, 'line', 'Unknown'),
@@ -177,7 +187,7 @@ class CallableExecutionTimer extends ObjectifiedCallable {
      *
      * @param string $funcName a name of your choosing (for the callable to be executed) that adheres to PHP method naming rules that will be used to label the call for benchmarking purposes
      * @param callable $funcImplementation the callable to be executed
-     * @param mixed $args arguments required by the callable to be executed
+     * @param array<mixed> $args arguments required by the callable to be executed
      *
      * @return mixed
      */

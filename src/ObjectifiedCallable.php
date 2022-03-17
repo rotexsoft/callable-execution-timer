@@ -22,18 +22,12 @@ class ObjectifiedCallable {
     /**
      * A name (conforming to PHP's method naming convention) you are labeling the callable to be executed by this class via which you can execute the callable using object method call syntax
      * 
-     * @var string
      */
     protected string $methodName = '';
     
     /**
      * Returns the callable that gets executed when an instance of this class's __call() or __invoke() methods are triggered
      * 
-     * @return callable
-     * 
-     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector
-     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector
-     * @noRector \Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector
      */
     public function getMethod(): callable {
         
@@ -43,11 +37,6 @@ class ObjectifiedCallable {
     /**
      * Returns the name (conforming to PHP's method naming convention) you have labeled the callable to be executed by this class via which you can execute the callable using object method call syntax
      * 
-     * @return string
-     * 
-     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector
-     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector
-     * @noRector \Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector
      */
     public function getMethodName(): string {
         
@@ -59,11 +48,6 @@ class ObjectifiedCallable {
      * 
      * @param callable $method The callable that gets executed when an instance of this class's __call() or __invoke() methods are triggered
      * 
-     * @return self
-     * 
-     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector
-     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector
-     * @noRector \Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector
      */
     public function setMethod(callable $method): self {
         
@@ -75,15 +59,11 @@ class ObjectifiedCallable {
     /**
      * Set the name (conforming to PHP's method naming convention) you are labeling the callable to be executed by this class via which you can execute the callable using object method call syntax
      * 
-     * @param string $methodName
+     * @param string $methodName the name (conforming to PHP's method naming convention) you are labeling the callable to be executed by this class via which you can execute the callable using object method call syntax
      * 
-     * @return self
      * 
      * @throws InvalidArgumentException
      * 
-     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector
-     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector
-     * @noRector \Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector
      */
     public function setMethodName(string $methodName): self {
         
@@ -102,7 +82,7 @@ class ObjectifiedCallable {
         /**
      * 
      * @param string $methodName should match the name of the method assigned (i.e. to $this->methodName) when this object was created
-     * @param array $args arguments to pass to the function / method to be executed
+     * @param array<mixed> $args arguments to pass to the function / method to be executed
      * 
      * @return mixed result returned from executing function / method registered on an instance of this class
      * 
@@ -124,7 +104,7 @@ class ObjectifiedCallable {
     /**
      * Executes function / method registered on an instance of this class
      * 
-     * @param mixed $args arguments to pass to the function / method to be executed
+     * @param array<mixed> $args arguments to pass to the function / method to be executed
      * 
      * @return mixed result returned from executing function / method registered on an instance of this class
      */
@@ -135,7 +115,6 @@ class ObjectifiedCallable {
         // computations for CallableExecutionTimer::__invoke
         // which calls this method and measures time it takes
         // for the callable in $this->method to be executed.
-        
         return \call_user_func_array($this->method, $args);
     }
     
@@ -165,11 +144,6 @@ class ObjectifiedCallable {
      * 
      * @param string $methodName name to be tested if is valid method name
      * 
-     * @return bool
-     * 
-     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector
-     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector
-     * @noRector \Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector
      */
     protected function isValidMethodName(string $methodName): bool {
         
