@@ -7,6 +7,7 @@ namespace FunctionExecutionTimer;
  * 
  * A class that can be used to call any function or method while tracking the execution time of each call
  * 
+ * @psalm-suppress MixedAssignment
  * 
  * 
  * @author Rotimi Ade
