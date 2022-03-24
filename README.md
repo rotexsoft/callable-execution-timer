@@ -1,11 +1,20 @@
 # Callable Execution Timer
 
-[![PHP Tests and Code Quality Tools](https://github.com/rotexsoft/function-execution-timer/workflows/Run%20PHP%20Tests%20and%20Code%20Quality%20Tools/badge.svg)](https://github.com/rotexsoft/function-execution-timer/actions?query=workflow%3A%22Run+PHP+Tests+and+Code+Quality+Tools%22) &nbsp;
-[![Release](https://img.shields.io/github/release/rotexsoft/function-execution-timer.png?style=flat-square)](https://github.com/rotexsoft/function-execution-timer/releases/latest) &nbsp; 
-[![Coverage Status](https://coveralls.io/repos/github/rotexsoft/function-execution-timer/badge.svg?branch=main)](https://coveralls.io/github/rotexsoft/function-execution-timer?branch=main) &nbsp; 
-![GitHub repo size](https://img.shields.io/github/repo-size/rotexsoft/function-execution-timer) &nbsp; 
-![GitHub top language](https://img.shields.io/github/languages/top/rotexsoft/function-execution-timer) &nbsp; 
-[![License](https://img.shields.io/badge/license-BSD-brightgreen.png?style=flat-square)](https://github.com/rotexsoft/function-execution-timer/blob/master/LICENSE) &nbsp; 
+[![PHP Tests and Code Quality Tools](https://github.com/rotexsoft/callable-execution-timer/workflows/Run%20PHP%20Tests%20and%20Code%20Quality%20Tools/badge.svg)](https://github.com/rotexsoft/callable-execution-timer/actions?query=workflow%3A%22Run+PHP+Tests+and+Code+Quality+Tools%22) &nbsp;
+[![Release](https://img.shields.io/github/release/rotexsoft/callable-execution-timer.png?style=flat-square)](https://github.com/rotexsoft/callable-execution-timer/releases/latest) &nbsp; 
+[![License](https://img.shields.io/badge/license-BSD-brightgreen.png?style=flat-square)](https://github.com/rotexsoft/callable-execution-timer/blob/master/LICENSE) &nbsp; 
+[![Coverage Status](https://coveralls.io/repos/github/rotexsoft/callable-execution-timer/badge.svg?branch=main)](https://coveralls.io/github/rotexsoft/callable-execution-timer?branch=main) &nbsp; 
+![GitHub repo size](https://img.shields.io/github/repo-size/rotexsoft/callable-execution-timer) &nbsp; 
+![Packagist Downloads](https://img.shields.io/packagist/dt/rotexsoft/callable-execution-timer)
+![GitHub top language](https://img.shields.io/github/languages/top/rotexsoft/callable-execution-timer) &nbsp; 
+![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/rotexsoft/callable-execution-timer) &nbsp; 
+![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rotexsoft/callable-execution-timer/latest) &nbsp; 
+![GitHub last commit](https://img.shields.io/github/last-commit/rotexsoft/callable-execution-timer) &nbsp; 
+![GitHub Release Date](https://img.shields.io/github/release-date/rotexsoft/callable-execution-timer) &nbsp; 
+<a href="https://libraries.io/github/rotexsoft/callable-execution-timer">
+    <img alt="Libraries.io dependency status for GitHub repo" src="https://img.shields.io/librariesio/github/rotexsoft/callable-execution-timer">
+</a>
+
 
 
 A simple PHP library for tracking the total amount of time a 
@@ -335,7 +344,7 @@ There are two ways to retrieve information associated with each execution of cal
     'end_time' => 81023870134000,
     'total_execution_time_in_seconds' => 8.0E-6,
     'return_value' => 'boo',
-    'file_called_from' => 'C:\\Code\\function-execution-timer\\tester.php',
+    'file_called_from' => 'C:\\Code\\callable-execution-timer\\tester.php',
     'line_called_from' => 105,
     )
     ```
@@ -382,7 +391,7 @@ There are two ways to retrieve information associated with each execution of cal
         'end_time' => 87248086840600,
         'total_execution_time_in_seconds' => 9.3E-6,
         'return_value' => 'boo',
-        'file_called_from' => 'C:\\Code\\function-execution-timer\\tester.php',
+        'file_called_from' => 'C:\\Code\\callable-execution-timer\\tester.php',
         'line_called_from' => 106,
     ),
     1 =>
@@ -396,7 +405,7 @@ There are two ways to retrieve information associated with each execution of cal
         'end_time' => 87248087001600,
         'total_execution_time_in_seconds' => 3.9E-6,
         'return_value' => 'aba',
-        'file_called_from' => 'C:\\Code\\function-execution-timer\\tester.php',
+        'file_called_from' => 'C:\\Code\\callable-execution-timer\\tester.php',
         'line_called_from' => 108,
     ),
     2 =>
@@ -410,7 +419,7 @@ There are two ways to retrieve information associated with each execution of cal
         'end_time' => 87248087024100,
         'total_execution_time_in_seconds' => 4.7E-6,
         'return_value' => 'Hello Jane !',
-        'file_called_from' => 'C:\\Code\\function-execution-timer\\tester.php',
+        'file_called_from' => 'C:\\Code\\callable-execution-timer\\tester.php',
         'line_called_from' => 110,
     ),
     )
