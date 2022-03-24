@@ -16,7 +16,6 @@
 </a>
 
 
-
 A simple PHP library for tracking the total amount of time a 
 [callable](https://www.php.net/manual/en/language.types.callable.php) (e.g. 
 function / method) takes to execute (it can also return the result of executing 
