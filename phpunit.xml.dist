@@ -11,7 +11,7 @@
     </report>
   </coverage>
   <testsuites>
-    <testsuite name="function-execution-timer">
+    <testsuite name="callable-execution-timer">
       <directory>./tests</directory>
     </testsuite>
   </testsuites>
