@@ -1,6 +1,6 @@
 # Callable Execution Timer
 
-[![PHP Tests and Code Quality Tools](https://github.com/rotexsoft/callable-execution-timer/workflows/Run%20PHP%20Tests%20and%20Code%20Quality%20Tools/badge.svg)](https://github.com/rotexsoft/callable-execution-timer/actions?query=workflow%3A%22Run+PHP+Tests+and+Code+Quality+Tools%22) &nbsp;
+[![Run PHP Tests and Code Quality Tools](https://github.com/rotexsoft/callable-execution-timer/actions/workflows/php.yml/badge.svg)](https://github.com/rotexsoft/callable-execution-timer/actions/workflows/php.yml) &nbsp;
 [![Release](https://img.shields.io/github/release/rotexsoft/callable-execution-timer.png?style=flat-square)](https://github.com/rotexsoft/callable-execution-timer/releases/latest) &nbsp; 
 [![License](https://img.shields.io/badge/license-BSD-brightgreen.png?style=flat-square)](https://github.com/rotexsoft/callable-execution-timer/blob/master/LICENSE) &nbsp; 
 [![Coverage Status](https://coveralls.io/repos/github/rotexsoft/callable-execution-timer/badge.svg?branch=main)](https://coveralls.io/github/rotexsoft/callable-execution-timer?branch=main) &nbsp; 
