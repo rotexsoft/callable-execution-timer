@@ -303,7 +303,6 @@ echo $callableObj2->funcWithRefArg($numRef) . PHP_EOL;  // Will throw a PHP Warn
 
 ```
 
-
 ## Retrieving execution statistics
 
 There are two ways to retrieve information associated with each execution of callables performed via this library:
