@@ -17,12 +17,7 @@ class Utils {
      * @param array $potentialArray array in which value is to be retrieved from
      * @param string $key key in the array whose value is to be retrieved if key exists in array
      * @param mixed $defaultVal value to return if key not in array
-     * 
-     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector
-     * @noRector \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector
-     * @noRector \Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector
-     * @noRector \Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector
-     * 
+     *  
      * @return mixed
      */
     public static function arrayGet(array $potentialArray, string $key, $defaultVal='') {
