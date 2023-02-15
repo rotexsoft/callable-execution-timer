@@ -17,10 +17,8 @@ class Utils {
      * @param array $potentialArray array in which value is to be retrieved from
      * @param string $key key in the array whose value is to be retrieved if key exists in array
      * @param mixed $defaultVal value to return if key not in array
-     *  
-     * @return mixed
      */
-    public static function arrayGet(array $potentialArray, string $key, $defaultVal='') {
+    public static function arrayGet(array $potentialArray, string $key, mixed $defaultVal=''): mixed {
         
         return (\array_key_exists($key, $potentialArray))
                 ? $potentialArray[$key]

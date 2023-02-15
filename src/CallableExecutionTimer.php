@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace FunctionExecutionTimer;
 
 /**
- * 
  * A class that can be used to call any function or method while tracking the execution time of each call
  * 
  * @psalm-suppress MixedAssignment
@@ -14,21 +13,17 @@ namespace FunctionExecutionTimer;
  */
 class CallableExecutionTimer extends ObjectifiedCallable {
 
-    public const NANO_SECOND_TO_SECOND_DIVISOR = 1_000_000_000;
+    final public const NANO_SECOND_TO_SECOND_DIVISOR = 1_000_000_000;
 
     /**
      * Holds execution stats for all function / method calls across all instances of this class
-     * 
-     * @var array
      */
-    protected static $benchmarks = [];
+    protected static array $benchmarks = [];
 
     /**
      * Holds execution stats for all function / method calls across all instances of this class
-     * 
-     * @var array
      */
-    protected $benchmark = [];
+    protected array $benchmark = [];
     
     /**
      * An array containing data about file, line where static::callFunc(...) was invoked 
@@ -49,9 +44,8 @@ class CallableExecutionTimer extends ObjectifiedCallable {
 
         ]
      * 
-     * @var array
      */
-    protected $calleeBacktraceData = [];
+    protected array $calleeBacktraceData = [];
     
     /**
      * Set to an array containing backtrace data about file, line where static::callFunc(...) was invoked
@@ -75,14 +69,12 @@ class CallableExecutionTimer extends ObjectifiedCallable {
     }
     
     /**
-     * 
      * @param string $method name of method being invoked
      * @param array<mixed> $args
-     * @return mixed
      * 
      * @throws \Exception from ObjectifiedCallable::__call
      */
-    public function __call(string $method, array $args) {
+    public function __call(string $method, array $args): mixed {
         
         if($this->calleeBacktraceData === []) {
             
@@ -109,7 +101,7 @@ class CallableExecutionTimer extends ObjectifiedCallable {
      * 
      * @return mixed result returned from executing function / method registered on an instance of this class
      */
-    public function __invoke(array $args) {
+    public function __invoke(array $args): mixed {
 
         $argsCopy = [];
         
@@ -189,12 +181,10 @@ class CallableExecutionTimer extends ObjectifiedCallable {
      * @param string $funcName a name of your choosing (for the callable to be executed) that adheres to PHP method naming rules that will be used to label the call for benchmarking purposes
      * @param callable $funcImplementation the callable to be executed
      * @param array<mixed> $args arguments required by the callable to be executed
-     *
-     * @return mixed
      */
     public static function callFunc(
         string $funcName, callable $funcImplementation, array $args=[]
-    ) {
+    ): mixed {
         $backTraceData = \debug_backtrace();
         $funcObj = (new self($funcName, $funcImplementation));
         

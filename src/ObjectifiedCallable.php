@@ -79,8 +79,7 @@ class ObjectifiedCallable {
         return $this;
     }
 
-        /**
-     * 
+    /**
      * @param string $methodName should match the name of the method assigned (i.e. to $this->methodName) when this object was created
      * @param array<mixed> $args arguments to pass to the function / method to be executed
      * 
@@ -88,7 +87,7 @@ class ObjectifiedCallable {
      * 
      * @throws \Exception if $method !== $this->methodName
      */
-    public function __call(string $methodName, array $args) {
+    public function __call(string $methodName, array $args): mixed {
         
         if( $this->methodName === $methodName ) {
 
@@ -96,7 +95,7 @@ class ObjectifiedCallable {
             
         } else {
             throw new \InvalidArgumentException(
-                "Error: Method `$methodName` not registered in this instance of `" . get_class($this) . '`'
+                "Error: Method `$methodName` not registered in this instance of `" . static::class . '`'
             );
         }
     }
@@ -108,7 +107,7 @@ class ObjectifiedCallable {
      * 
      * @return mixed result returned from executing function / method registered on an instance of this class
      */
-    public function __invoke(array $args) {
+    public function __invoke(array $args): mixed {
         
         // need to always keep this method very simple 
         // because we don't want to add any overhead 
@@ -119,7 +118,6 @@ class ObjectifiedCallable {
     }
     
     /**
-     * 
      * @param string $methodName a valid name (conforming to PHP's method naming convention) for the callable to be registered to this object
      * @param callable $method a callable that will be executed via this object
      */
