@@ -20,7 +20,7 @@ return static function (RectorConfig $rectorConfigurator): void {
     $rectorConfigurator->import(SetList::PHP_80);
     $rectorConfigurator->import(SetList::PHP_81);
     $rectorConfigurator->import(SetList::DEAD_CODE);
-    $rectorConfigurator->import(SetList::PSR_4);
+    //$rectorConfigurator->import(SetList::PSR_4);
     $rectorConfigurator->import(SetList::TYPE_DECLARATION);
     
     $rectorConfigurator->skip([
