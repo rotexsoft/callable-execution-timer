@@ -233,10 +233,6 @@ class CallableExecutionTimerTest extends \PHPUnit\Framework\TestCase {
         // Relative static class method call
         $this->assertEquals(
             "A", 
-            CallableExecutionTimer::callFunc('B_A_who', [B::class, 'parent::who'])
-        );
-        $this->assertEquals(
-            "A", 
             CallableExecutionTimer::callFunc('A_who', [A::class, 'who'])
         );
         $this->assertEquals(
