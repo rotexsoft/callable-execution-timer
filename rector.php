@@ -27,7 +27,6 @@ return static function (RectorConfig $rectorConfigurator): void {
         \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector::class,
         //\Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector::class,
         \Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector::class,
-        \Rector\Php71\Rector\FuncCall\CountOnNullRector::class,
         //\Rector\TypeDeclaration\Rector\FunctionLike\ParamTypeDeclarationRector::class,
         \Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector::class
     ]);
