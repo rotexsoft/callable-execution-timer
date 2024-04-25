@@ -30,6 +30,13 @@ If you want to do some simple execution time profiling in your application, with
 
     composer require rotexsoft/callable-execution-timer
 
+## Branching
+
+These are the branches in this repository:
+
+- **main:** contains code for the latest major version of this package
+- **1.x:** contains code for the **1.x** version of this package
+
 ## Introduction
 
 A simple PHP library for tracking the total amount of time a callable (e.g. 
