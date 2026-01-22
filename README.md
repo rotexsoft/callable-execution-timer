@@ -11,7 +11,7 @@
 ![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/rotexsoft/callable-execution-timer/latest) &nbsp; 
 ![GitHub last commit](https://img.shields.io/github/last-commit/rotexsoft/callable-execution-timer) &nbsp; 
 ![GitHub Release Date](https://img.shields.io/github/release-date/rotexsoft/callable-execution-timer) &nbsp; 
-<a href="https://libraries.io/github/rotexsoft/callable-execution-timer">
+<a href="https://libraries.io/packagist/rotexsoft%2Fcallable-execution-timer">
     <img alt="Libraries.io dependency status for GitHub repo" src="https://img.shields.io/librariesio/github/rotexsoft/callable-execution-timer">
 </a>
 
