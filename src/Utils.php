@@ -5,6 +5,8 @@ namespace FunctionExecutionTimer;
 
 /**
  * Description of Utils
+ * 
+ * @psalm-suppress ClassMustBeFinal
  *
  * @author Rotimi Ade
  */

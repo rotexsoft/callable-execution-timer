@@ -6,6 +6,7 @@ namespace FunctionExecutionTimer;
 /**
  * A class that can be used to call any function or method while tracking the execution time of each call
  * 
+ * @psalm-suppress ClassMustBeFinal
  * @psalm-suppress MixedAssignment
  * 
  * 
@@ -74,6 +75,7 @@ class CallableExecutionTimer extends ObjectifiedCallable {
      * 
      * @throws \Exception from ObjectifiedCallable::__call
      */
+    #[\Override]
     public function __call(string $method, array $args): mixed {
         
         if($this->calleeBacktraceData === []) {
@@ -101,6 +103,7 @@ class CallableExecutionTimer extends ObjectifiedCallable {
      * 
      * @return mixed result returned from executing function / method registered on an instance of this class
      */
+    #[\Override]
     public function __invoke(array $args): mixed {
 
         $argsCopy = [];
