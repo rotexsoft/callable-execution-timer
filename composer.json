@@ -31,7 +31,6 @@
             "Composer\\Config::disableProcessTimeout",
             "vendor/bin/phpunit --coverage-text"
         ],
-        "rector-clear": "vendor/bin/rector --clear-cache",
         "rector": "vendor/bin/rector process src --dry-run",
         "psalm-clear-cache": "vendor/bin/psalm --clear-global-cache && vendor/bin/psalm --clear-cache",
         "psalm": "composer psalm-clear-cache && vendor/bin/psalm --threads=1",
