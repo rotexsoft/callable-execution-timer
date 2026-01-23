@@ -29,7 +29,7 @@
     "scripts": {
         "test": [
             "Composer\\Config::disableProcessTimeout",
-            "vendor/bin/phpunit --coverage-text"
+            "vendor/bin/phpunit --coverage-text --display-all-issues"
         ],
         "rector": "vendor/bin/rector process src --dry-run",
         "psalm-clear-cache": "vendor/bin/psalm --clear-global-cache && vendor/bin/psalm --clear-cache",
